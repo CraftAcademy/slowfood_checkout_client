@@ -1,7 +1,4 @@
 describe("User can see a collection of products", () => {
-  beforeEach(() => {
-    cy.visit("http://localhost:3001");
-  });
 
   describe("when there are products", () => {
     before(() => {
@@ -11,10 +8,11 @@ describe("User can see a collection of products", () => {
         url: "http://localhost:3000/api/products",
         response: "fixture:product_data.json",
       });
+      cy.visit("/");
     });
 
     it("successfully", () => {
-      cy.get("#menu").within(() => {
+      cy.get("[data-cy='menu']").within(() => {
         cy.contains("Entrecôte with chanterelle sauce and potato gratin");
         cy.contains("Raindeer tartare");
         cy.contains("Swedish pancake with lingonberries");
@@ -28,13 +26,13 @@ describe("User can see a collection of products", () => {
       cy.route({
         method: "GET",
         url: "http://localhost:3000/api/products",
-        response: [],
+        response: {products: []},
       });
+      cy.visit("/");
     });
 
     it("unsuccessfully", () => {
-      cy.get("#menu").should("not.exist");
-      cy.get("#no-menu").should("contain","There is no available menu.")
+      cy.get("[data-cy='menu']").should("be.empty");
     });
   });
 });

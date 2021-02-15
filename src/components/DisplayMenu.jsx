@@ -1,55 +1,39 @@
-import React, { Component } from 'react'
-import { getData } from '../modules/productData'
-import { Header, Item } from 'semantic-ui-react'
+import React, { Component } from "react";
+import { getData } from "../modules/productData";
+import { Container, Item } from "semantic-ui-react";
 
 class DisplayMenu extends Component {
   state = {
-    productData: []
-  }
+    productData: [],
+  };
 
   componentDidMount() {
-    this.getProductData()
+    this.getProductData();
   }
 
   async getProductData() {
     let result = await getData();
-    this.setState({ productData: result })
+    this.setState({ productData: result });
   }
 
   render() {
-    let dataIndex
-    if (Array.isArray(this.state.productData) && this.state.productData.length) {
-      dataIndex = (
-        <div id="menu">
-          {this.state.productData.map(item => {
-            return (
-              <Item key={item.id} data-cy={`product-${item.id}`}>
-                <Item.Image size='tiny' src={item.image} />
-                <Item.Content>
-                  <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>{item.name}</Item.Header>
-                  <Item.Description>{item.description}</Item.Description>
-                  <Item.Extra> {item.price}</Item.Extra>
-                </Item.Content>
-              </Item>
-            )
-          })
-          }
-        </div>
-      )
-    } else {
+    const { productData } = this.state;
+    let dataIndex = productData.map((item) => {
       return (
-        <Header as='h3' id='no-menu'>
-          There is no available menu.
-        </Header>
-      )
-    }
+        <Item key={item.id} data-cy={`product-${item.id}`}>
+          <Item.Content>
+            <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>
+              {item.name}
+            </Item.Header>
+            <Item.Description>{item.description}</Item.Description>
+            <Item.Extra> {item.price}</Item.Extra>
+          </Item.Content>
+        </Item>
+      );
+    });
 
-    return (
-      <div>
-        {dataIndex}
-      </div>
-    )
+    return <Container data-cy='menu'>{dataIndex}</Container>;
   }
 }
 
-export default DisplayMenu
+export default DisplayMenu;
