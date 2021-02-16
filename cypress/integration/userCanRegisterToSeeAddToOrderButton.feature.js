@@ -7,6 +7,14 @@ describe('Add to order button', () => {
         url: "http://localhost:3000/api/products",
         response: 'fixture:product_data.json'
       });
+      cy.route({
+        method: "POST",
+        url: "http://localhost:3000/api/auth",
+        response: 'fixture:register_user.json',
+        headers: {
+          uid: "user@mail.com"
+        }
+      });
       cy.visit('/')
     })
     it("for authenticated user", () => {

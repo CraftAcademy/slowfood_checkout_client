@@ -10,7 +10,7 @@ class DisplayMenu extends Component {
   componentDidMount() {
     this.getProductData();
   }
-
+  
   async getProductData() {
     let result = await getData();
     this.setState({ productData: result });

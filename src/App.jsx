@@ -7,6 +7,10 @@ class App extends Component {
   state = {
     authenticated: false
   }
+
+  setAuthState = () => {
+    this.setState({authenticated: true})
+  }
   render() {
     return (
       <>
@@ -14,7 +18,7 @@ class App extends Component {
           Slowfood
         </Header>
         <Container>
-          <Registration />
+          <Registration authenticatedStatus={() => this.setAuthState()}/>
           <DisplayMenu authenticated={this.state.authenticated} />
         </Container>
       </>
