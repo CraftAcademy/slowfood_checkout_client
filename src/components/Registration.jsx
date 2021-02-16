@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { registerUser } from "../modules/authenticationService";
 
 class Registration extends Component {
   state = {
@@ -13,50 +13,57 @@ class Registration extends Component {
       password: event.target.password.value,
       password_confirmation: event.target.password_confirmation.value,
     };
-    let response = await axios.post("/auth", credentials);
-    const userCredentials = {
-      uid: response.headers["uid"],
-      client: response.headers["client"],
-      access_token: response.headers["access-token"],
-      expiry: response.headers["expiry"],
-      token_type: "Bearer",
-    };
-    localStorage.setItem("credentials", JSON.stringify(userCredentials));
-    this.props.authenticatedStatus()
-    this.setState({renderForm: false})
+    let response = await registerUser(credentials);
+    if (response.email) {
+      this.setState({
+        message: `Hope you will enjoy your order ${response.email}`,
+      });
+      this.props.authenticatedStatus();
+      this.setState({ renderForm: false });
+    } else {
+      this.setState({
+        errorMessage: `Whoops! ${response}`,
+      });
+    }
   };
+  
   render() {
-    const { renderForm } = this.state;
+    const { renderForm, message, errorMessage } = this.state;
     return (
       <div>
         {renderForm ? (
-          <form
-            onSubmit={(event) => {
-              this.signUpUser(event);
-            }}
-          >
-            <input
-              name="email"
-              type="email"
-              data-cy="email-field"
-              placeholder="Email"
-            />
-            <input
-              name="password"
-              type="password"
-              data-cy="password-field"
-              placeholder="Password"
-            />
-            <input
-              name="password_confirmation"
-              type="password"
-              data-cy="password-confirmation-field"
-              placeholder="Password Confirmation"
-            />
-            <button type="submit" data-cy="submit">
-              Register!
-            </button>
-          </form>
+          <>
+            <form
+              onSubmit={(event) => {
+                this.signUpUser(event);
+              }}
+            >
+              <input
+                name="email"
+                type="email"
+                data-cy="email-field"
+                placeholder="Email"
+              />
+              <input
+                name="password"
+                type="password"
+                data-cy="password-field"
+                placeholder="Password"
+              />
+              <input
+                name="password_confirmation"
+                type="password"
+                data-cy="password-confirmation-field"
+                placeholder="Password Confirmation"
+              />
+              <button type="submit" data-cy="submit">
+                Register!
+              </button>
+            </form>
+            {errorMessage && <p>{errorMessage}</p>}
+          </>
+        ) : message ? (
+          <div>{message}</div>
         ) : (
           <button
             data-cy="register-button"
