@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getData } from "../modules/productData";
-import { Container, Item } from "semantic-ui-react";
+import { Button, Container, Item } from "semantic-ui-react";
 
 class DisplayMenu extends Component {
   state = {
@@ -25,14 +25,17 @@ class DisplayMenu extends Component {
             <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>
               {item.name}
             </Item.Header>
-            <Item.Description>{item.ingredients}</Item.Description>
-            <Item.Extra> {item.price}</Item.Extra>
+            <Item.Description>Ingredients: {item.ingredients}</Item.Description>
+            <Item.Extra>Price: {item.price}kr</Item.Extra>
+            {this.props.authenticated && (
+              <Button data-cy="order-button">Add to order</Button>
+            )}
           </Item.Content>
         </Item>
       );
     });
 
-    return <Container data-cy='menu'>{dataIndex}</Container>;
+    return <Container data-cy="menu">{dataIndex}</Container>;
   }
 }
 
