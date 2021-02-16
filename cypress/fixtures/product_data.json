@@ -2,20 +2,20 @@
   "products": [
     {
       "id": 1,
-      "name": "Entrecôte with chanterelle sauce and potato gratin",
-      "description": "Amazing starter with awesome SWEDISH chanterelle sauce",
+      "name": "Vesuvio",
+      "ingredients": "Cheese, Ham",
       "price": 12
     },
     {
       "id": 2,
-      "name": "Raindeer tartare",
-      "description": "Amazing taste from Northern part of Sweden",
+      "name": "Capricciosa",
+      "ingredients": "Cheese, Ham, Mushroom",
       "price": 20
     },
     {
       "id": 3,
-      "name": "Swedish pancake with lingonberries",
-      "description": "Traditional swedish taste with lingonberries picked in the forest",
+      "name": "Funghi",
+      "ingredients": "Cheese, Mushroom",
       "price": 7
     }
   ]

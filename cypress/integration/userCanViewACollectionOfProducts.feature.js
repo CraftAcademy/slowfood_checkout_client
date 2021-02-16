@@ -13,9 +13,9 @@ describe("User can see a collection of products", () => {
 
     it("successfully", () => {
       cy.get("[data-cy='menu']").within(() => {
-        cy.contains("Entrecôte with chanterelle sauce and potato gratin");
-        cy.contains("Raindeer tartare");
-        cy.contains("Swedish pancake with lingonberries");
+        cy.contains("Vesuvio");
+        cy.contains("Capricciosa");
+        cy.contains("Funghi");
       });
     });
   });

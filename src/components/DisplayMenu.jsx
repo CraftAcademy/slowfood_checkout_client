@@ -25,7 +25,7 @@ class DisplayMenu extends Component {
             <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>
               {item.name}
             </Item.Header>
-            <Item.Description>{item.description}</Item.Description>
+            <Item.Description>{item.ingredients}</Item.Description>
             <Item.Extra> {item.price}</Item.Extra>
           </Item.Content>
         </Item>
