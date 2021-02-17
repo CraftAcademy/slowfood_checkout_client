@@ -1,0 +1,14 @@
+{
+  "message": "This pizza was added to your order!",
+  "order": {
+    "id": 1,
+    "items": [
+      {
+        "id": 1,
+        "name": "Vesuvio",
+        "ingredients": "Cheese, Ham",
+        "price": 12
+      }
+    ]
+  }
+}
