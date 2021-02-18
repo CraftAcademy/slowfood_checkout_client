@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getAllProducts } from "../modules/productData";
 import { Button, Container, Item } from "semantic-ui-react";
-import { createOrder } from "../modules/orderService";
+import { createOrder, updateOrder } from "../modules/orderService";
 
 class DisplayMenu extends Component {
   state = {
@@ -18,11 +18,19 @@ class DisplayMenu extends Component {
   }
 
   addToOrder = async (event) => {
+    let response;
     let productId = parseInt(event.target.dataset.id);
-    let response = await createOrder(productId)
-    this.setState({ message: response.message });
+    if (this.state.orderId) {
+      response = await updateOrder(this.state.orderId, productId);
+    } else {
+      response = await createOrder(productId);
+    }
     let orderItemsLength = response.order.items.length;
-    this.setState({ orderItems: orderItemsLength });
+    this.setState({
+      message: response.message,
+      orderItems: orderItemsLength,
+      orderId: response.order.id,
+    });
   };
 
   render() {

@@ -7,7 +7,17 @@ const createOrder = async (productId) => {
     { product_id: productId },
     { headers: authenticationHeaders }
   );
-  return response.data
-};;
+  return response.data;
+};
 
-export { createOrder };
+const updateOrder = async (orderId, productId) => {
+  let authenticationHeaders = JSON.parse(localStorage.getItem("credentials"));
+  let response = await axios.put(
+    `/orders/${orderId}`,
+    { product_id: productId },
+    { headers: authenticationHeaders }
+  );
+  return response.data;
+};
+
+export { createOrder, updateOrder };
