@@ -33,19 +33,21 @@ describe("Add to order button", () => {
     });
   });
 
-  describe('is not visible', () => {
+  describe("is not visible", () => {
     beforeEach(() => {
       cy.route({
         method: "POST",
         url: "http://localhost:3000/api/auth",
         status: 401,
         response: {
-          errors: ["Invalid login credentials. Please try again."],
+          errors: {
+            full_messages: ["Invalid login credentials. Please try again."],
+          },
           success: false,
         },
       });
     });
-    it('if user is not authenticated', () => {
+    it("if user is not authenticated", () => {
       cy.get('[data-cy="product-1"]').within(() => {
         cy.get('[data-cy="order-button"]').should("not.exist");
       });
@@ -58,6 +60,5 @@ describe("Add to order button", () => {
         cy.get('[data-cy="order-button"]').should("not.exist");
       });
     });
-  })
-  
+  });
 });

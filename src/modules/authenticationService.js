@@ -13,7 +13,7 @@ const registerUser = async (credentials) => {
     localStorage.setItem("credentials", JSON.stringify(userCredentials));
     return response.data.data;
   } catch (error) {
-    return error.response.data.errors[0];
+    return error.response.data.errors.full_messages.toString();
   }
 };
 
