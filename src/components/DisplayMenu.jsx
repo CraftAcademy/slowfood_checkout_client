@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getData } from "../modules/productData";
-import { Container, Item } from "semantic-ui-react";
+import { Button, Container, Item } from "semantic-ui-react";
 
 class DisplayMenu extends Component {
   state = {
@@ -27,6 +27,9 @@ class DisplayMenu extends Component {
             </Item.Header>
             <Item.Description>{item.ingredients}</Item.Description>
             <Item.Extra> {item.price}</Item.Extra>
+            {this.props.authenticated && (
+            <Button data-cy='order-button'>Add To Order</Button>
+            )}
           </Item.Content>
         </Item>
       );
